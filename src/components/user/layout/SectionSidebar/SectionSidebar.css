@@ -1,0 +1,32 @@
+.sidebar__header {
+	border-radius: 6px 6px 0 0;
+	font-size: 12px;
+	padding: 10px 5px;
+	color: #fff;
+	background: rgb(178, 34, 34);
+	padding-left: 5px;
+	text-transform: uppercase;
+	padding: 10px;
+}
+.sidebar__list {
+	list-style-type: none;
+	padding-left: 10px;
+}
+.sidebar__item {
+	padding: 5px;
+}
+.sidebar__link {
+	text-decoration: none;
+	color: #000;
+}
+.sidebar__loading {
+	display: none;
+}
+
+.sidebar__loading--active {
+	display: inline-block;
+}
+
+.sidebar__img {
+	width: 100%;
+}

@@ -1,0 +1,32 @@
+.header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.header__logo {
+	width: 320px;
+}
+
+.header__logo img {
+	width: 100%;
+}
+
+.header__main {
+	flex: 1;
+}
+
+.header__content {
+	text-align: center;
+}
+
+.header__sus {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.header__name {
+	font-size: 28px;
+	color: rgb(178, 34, 34);
+	margin-top: 10px;
+}

@@ -1,0 +1,277 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 1040px;
+	display: block;
+	margin: 0 auto;
+	color: #322c20;
+	background: #fff;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.header__logo {
+	width: 320px;
+}
+
+.header__logo img {
+	width: 100%;
+}
+
+.header__main {
+	flex: 1;
+}
+
+.header__content {
+	text-align: center;
+}
+
+.header__sus {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.header__name {
+	font-size: 28px;
+	color: rgb(178, 34, 34);
+	margin-top: 10px;
+}
+
+.header-form {
+	width: 370px;
+	border: 1px solid #c75b00;
+	border-bottom: 3px solid #c75b00;
+	border-radius: 5px;
+	background-color: #feffe5;
+}
+.header-form__header {
+	font-size: 12px;
+	padding: 8px 6px;
+	background: url(../img/header_form_bg.png) 0 -10px repeat-x #ff9000;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 2px solid #c75b00;
+	font-weight: bold;
+}
+.header-form__content {
+	margin-left: 10px;
+	padding: 10px 0;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+.header-form__control {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+.header-form__label {
+	font-size: 12px;
+	min-width: 40px;
+}
+.header-form__input {
+	width: 130px;
+	font-size: 12px;
+	padding: 2px 4px;
+}
+
+.header-form__btn {
+	color: #fff;
+	font-weight: bold;
+	border-radius: 40px;
+	background: rgb(17, 174, 236);
+	border: none;
+	width: 100px;
+	margin: 0 auto;
+}
+
+.header-form__btn:hover {
+	background: rgb(218, 214, 10);
+	color: #000;
+}
+
+.nav {
+}
+.nav__list {
+	border-radius: 8px;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	background: rgb(178, 34, 34);
+	list-style-type: none;
+}
+.nav__item {
+}
+.nav__link {
+	display: inline-block;
+	font-size: 14px;
+	color: #fff;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 8px 20px;
+}
+
+.nav__item + .nav__item {
+	border-left: 1px solid #ccc;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 3fr 6fr 3fr;
+	grid-column-gap: 10px;
+}
+
+.sidebar {
+	margin-bottom: 5px;
+	border-radius: 6px 6px 0 0;
+	border: 1px solid #ccc;
+}
+.sidebar__header {
+	border-radius: 6px 6px 0 0;
+	font-size: 12px;
+	padding: 10px 5px;
+	color: #fff;
+	background: rgb(178, 34, 34);
+	padding-left: 5px;
+}
+.sidebar__list {
+	list-style-type: none;
+	padding-left: 10px;
+}
+.sidebar__item {
+	padding: 5px;
+}
+.sidebar__link {
+	text-decoration: none;
+	color: #000;
+}
+.sidebar__loading {
+	display: none;
+}
+
+.sidebar__loading--active {
+	display: inline-block;
+}
+
+.sidebar__img {
+	width: 100%;
+}
+
+.xs-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 12px;
+	background: rgb(178, 34, 34);
+	border-radius: 12px 12px 0 0;
+}
+.xs-header-left {
+	font-size: 16px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.xs-header-right {
+	font-size: 12px;
+	color: #fff;
+}
+
+.xs {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+.xs tr td {
+	border: 1px solid #ccc;
+}
+
+.xs .gl {
+	width: 85px;
+	padding-left: 5px;
+}
+
+.giai {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.giaiso {
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 0;
+	width: 100%;
+	font-size: 20px;
+}
+
+.kqxsmn1d .gdb .giaiso,
+.kqxsmn1d .g8 .giaiso,
+.kqxsmt1d .gdb .giaiso,
+.kqxsmt1d .g8 .giaiso,
+.kqxsmb1d .gdb .giaiso,
+.kqxsmb1d .g7 .giaiso {
+	font-size: 44px;
+	color: maroon;
+}
+
+.kqxsmn1d .g1 .giaiso,
+.kqxsmt1d .g1 .giaiso,
+.kqxsmb1d .g1 .giaiso {
+	font-size: 32px;
+}
+
+.kqxsmn1d .g1 .giaiso,
+.kqxsmt1d .g1 .giaiso {
+	font-size: 24px;
+}
+
+.kqxsmb1d .g2 .giaiso {
+	font-size: 24px;
+	width: 50%;
+}
+
+.kqxsmn1d .g3 .giaiso,
+.kqxsmt1d .g3 .giaiso {
+	width: 50%;
+}
+
+.kqxsmb1d .g3 .giaiso {
+	width: 33%;
+}
+
+.kqxsmn1d .g4 .giaiso,
+.kqxsmt1d .g4 .giaiso {
+	width: 25%;
+}
+
+.kqxsmb1d .g4 .giaiso {
+	width: 50%;
+}
+
+.kqxsmb1d .g5 .giaiso {
+	width: 33%;
+}
+
+.kqxsmn1d .g6 .giaiso,
+.kqxsmb1d .g6 .giaiso,
+.kqxsmt1d .g6 .giaiso {
+	width: 33%;
+}
+
+.kqxsmb1d .g7 .giaiso {
+	width: 25%;
+}
+
+.giaiso:hover {
+	background: #ffeaa5;
+}

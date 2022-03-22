@@ -1,0 +1,68 @@
+.xsmn3d {
+	display: flex;
+}
+
+.loaigiai div {
+	border: 1px solid #ccc;
+	width: auto;
+	white-space: nowrap;
+	padding: 4px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 80px;
+}
+
+.ketqua {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.dai {
+	width: 100%;
+}
+
+.gs {
+	border: 1px solid #ccc;
+	text-align: center;
+}
+
+.giai8 .giaiso,
+.giaidb .giaiso {
+	color: maroon;
+	font-size: 30px;
+}
+
+.title {
+	color: #03c;
+	font-size: 18px;
+}
+
+.ten-dai {
+	color: #03c;
+	font-size: 18px;
+	height: 31px;
+	line-height: 31px;
+	text-decoration: none;
+	display: block;
+}
+
+.lg8 {
+	height: 41px;
+}
+
+.lg6 {
+	height: 82px;
+}
+.lg4 {
+	height: 188.5px;
+}
+.lg3 {
+	height: 55.5px;
+}
+.lgdb {
+	height: 40.5px;
+}
