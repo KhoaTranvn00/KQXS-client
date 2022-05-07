@@ -30,3 +30,34 @@
 	color: rgb(178, 34, 34);
 	margin-top: 10px;
 }
+
+.header-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2px 0;
+	margin-bottom: 2px;
+	border-bottom: 1px solid #ccc;
+	font-size: 12px;
+}
+
+.header-top-right {
+}
+
+.header-top-right a,
+.header-top-right .a {
+	color: rgb(17, 174, 236);
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 6px;
+	font-size: 12px;
+	border: none;
+}
+
+.header-top-right a,
+.header-top-right .a {
+}
+
+.header-top strong {
+	font-size: 14px;
+}

@@ -1,0 +1,11 @@
+.lottery-bought table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.lottery-bought table td,
+.lottery-bought table th {
+	border: 1px solid black;
+	padding: 4px 16px;
+}

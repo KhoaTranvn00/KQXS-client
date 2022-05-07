@@ -5,6 +5,7 @@
 	margin-bottom: 10px;
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 	background: rgb(178, 34, 34);
 	list-style-type: none;
 }
@@ -13,7 +14,7 @@
 }
 .nav__link {
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	color: #fff;
 	text-transform: uppercase;
 	text-decoration: none;

@@ -1,0 +1,12 @@
+.alert {
+	font-size: 15px;
+}
+
+.alert.error {
+	background: red;
+	color: #fff;
+	padding: 6px 12px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	width: 100%;
+}

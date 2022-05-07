@@ -4,6 +4,7 @@ import Select from "react-select";
 import utilsApi from "api/utils/utilsApi";
 import userApi from "api/user/userApi";
 import Alert from "components/utils/Alert/Alert";
+import { useAlert } from "react-alert";
 
 const HeaderForm = () => {
 	const [ngay, setNgay] = useState(null);
@@ -13,6 +14,7 @@ const HeaderForm = () => {
 		value: null,
 	});
 	const [alert, setAlert] = useState(null);
+	const alertHook = useAlert();
 
 	const formValue = { ngay, veso, dai: daiOption };
 
@@ -33,11 +35,9 @@ const HeaderForm = () => {
 		try {
 			const response = await userApi.doXS(formValue);
 			console.log(response);
-			if (response.success) {
-				setAlert({
-					...response,
-				});
-			}
+			if (response.ketqua) {
+				alertHook.success(response.message);
+			} else alertHook.error(response.message);
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,7 +45,7 @@ const HeaderForm = () => {
 
 	return (
 		<div className="header-form">
-			{alert && <Alert info={alert} />}
+			{/* {alert && <Alert info={alert} />} */}
 			<div className="header-form__header">
 				Dò vé số Online - May mắn mỗi ngày!...
 			</div>
