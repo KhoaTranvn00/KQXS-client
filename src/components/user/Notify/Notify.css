@@ -1,0 +1,11 @@
+.notify table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.notify table td,
+.notify table th {
+	border: 1px solid black;
+	padding: 4px 16px;
+}

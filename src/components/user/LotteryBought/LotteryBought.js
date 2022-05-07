@@ -28,7 +28,7 @@ const LotteryBought = () => {
 			padTo2Digits(date.getDate()),
 			padTo2Digits(date.getMonth() + 1),
 			date.getFullYear(),
-		].join("/");
+		].join("-");
 	}
 
 	return (
@@ -49,9 +49,11 @@ const LotteryBought = () => {
 						<th>Đài</th>
 						<th>Ngày mua</th>
 						<th>Trạng thái</th>
+						<th>Xem vé dò</th>
 					</tr>
 					{veDaMuas.map((veDaMua, index) => (
 						<tr>
+							{}
 							<td>{index + 1}</td>
 							<td>{veDaMua.veso}</td>
 							<td>{veDaMua.soluong}</td>
@@ -64,6 +66,15 @@ const LotteryBought = () => {
 							) : (
 								<td style={{ backgroundColor: "#6fff00d6" }}>Trúng thưởng</td>
 							)}
+							<td>
+								<Link
+									to={`/kqxs/mien-nam/${veDaMua.daiId.slug}/${formatDate(
+										new Date(veDaMua.ngay)
+									)}`}
+								>
+									Xem
+								</Link>
+							</td>
 						</tr>
 					))}
 				</table>

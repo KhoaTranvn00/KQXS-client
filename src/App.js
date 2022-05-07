@@ -11,6 +11,7 @@ import NgayMT from "components/user/KQXS/MT/NgayMT/NgayMT";
 import ThuMT from "components/user/KQXS/MT/ThuMT/ThuMT";
 import Auth from "components/user/layout/Auth/Auth";
 import LotteryBought from "components/user/LotteryBought/LotteryBought";
+import Notify from "components/user/Notify/Notify";
 import Account from "components/user/Page/Account/Account";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -66,6 +67,7 @@ function App() {
 				<Route path="account" element={<Account />}>
 					<Route path="mua-ve-so" element={<BuyLottery />} />
 					<Route path="ve-da-mua" element={<LotteryBought />} />
+					<Route path="thong-bao" element={<Notify />} />
 				</Route>
 			</Routes>
 		</Router>
