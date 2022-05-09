@@ -1,0 +1,51 @@
+.setKQXS.lottery-form {
+	width: auto;
+	border: 1px solid #ccc;
+	border-bottom: 3px solid #3c93e2;
+	border-radius: 5px;
+	background-color: #fff;
+}
+.setKQXS .lottery-form__header {
+	font-size: 24px;
+	padding: 8px 6px;
+	background: 0 -10px repeat-x #3c93e2;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 2px solid #1b5c98;
+	font-weight: bold;
+	color: #fff;
+}
+.setKQXS .lottery-form__content {
+	margin-left: 10px;
+	padding: 10px 0;
+	display: block;
+}
+.setKQXS .lottery-form__control {
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+}
+.setKQXS .lottery-form__label {
+	font-size: 14px;
+	min-width: 60px;
+}
+.setKQXS .lottery-form__input {
+	width: 200px;
+	font-size: 14px;
+	padding: 2px 4px;
+}
+
+.setKQXS .lottery-form__btn {
+	color: #fff;
+	font-weight: bold;
+	border-radius: 40px;
+	background: #3c93e2;
+	border: none;
+	padding: 6px 20px;
+	font-size: 16px;
+	margin-top: 5px;
+}
+
+.setKQXS .lottery-form__btn:hover {
+	background: rgb(218, 214, 10);
+	color: #000;
+}

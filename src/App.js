@@ -1,4 +1,9 @@
 import { unwrapResult } from "@reduxjs/toolkit";
+import AccountAdmin from "components/admin/AccountAdmin";
+import LoginAdmin from "components/admin/auth/Login/LoginAdmin";
+import Layout from "components/admin/Layout/Layout";
+import QLVM from "components/admin/QLVM/QLVM";
+import SetKQXS from "components/admin/SetKQXS/SetKQXS";
 import Login from "components/user/auth/Login/Login";
 import Register from "components/user/auth/Login/Register";
 import BuyLottery from "components/user/BuyLottery/BuyLottery";
@@ -68,6 +73,13 @@ function App() {
 					<Route path="mua-ve-so" element={<BuyLottery />} />
 					<Route path="ve-da-mua" element={<LotteryBought />} />
 					<Route path="thong-bao" element={<Notify />} />
+				</Route>
+				<Route path="admin" element={<Layout />}>
+					<Route path="dang-nhap" element={<LoginAdmin />} />
+					<Route path="account" element={<AccountAdmin />}>
+						<Route path="dat-kqxs" element={<SetKQXS />} />
+						<Route path="quan-ly-ve-mua" element={<QLVM />} />
+					</Route>
 				</Route>
 			</Routes>
 		</Router>
