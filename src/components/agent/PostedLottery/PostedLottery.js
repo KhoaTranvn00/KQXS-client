@@ -1,10 +1,10 @@
 import userApi from "api/user/userApi";
 import React, { useEffect, useState } from "react";
-import "./LotteryBought.css";
+import "./PostedLottery.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 
-const LotteryBought = () => {
+const PostedLottery = () => {
 	const [veDaMuas, setVeDaMuas] = useState(null);
 	const [tg, setTg] = useState(null);
 	const [status, setStatus] = useState(-1);
@@ -203,4 +203,4 @@ const LotteryBought = () => {
 	);
 };
 
-export default LotteryBought;
+export default PostedLottery;

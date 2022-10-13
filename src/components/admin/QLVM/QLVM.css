@@ -1,0 +1,23 @@
+.qlvm .filter-form {
+	margin: 20px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 6px;
+}
+
+.qlvm table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.qlvm strong {
+	margin: 10px;
+	display: block;
+}
+
+.qlvm table td,
+.qlvm table th {
+	border: 1px solid black;
+	padding: 4px 16px;
+}

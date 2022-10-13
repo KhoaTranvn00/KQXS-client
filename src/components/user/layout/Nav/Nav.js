@@ -1,8 +1,11 @@
 import React from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+	const userState = useSelector((state) => state.user);
+
 	return (
 		<nav className="nav">
 			<ul className="nav__list">
@@ -162,6 +165,13 @@ const Nav = () => {
 						Mua số Online
 					</Link>
 				</li>
+				{userState.user && userState.user.role == 1 && (
+					<li className="nav__item">
+						<Link to="/agent" className="nav__link">
+							Kênh người bán
+						</Link>
+					</li>
+				)}
 			</ul>
 		</nav>
 	);

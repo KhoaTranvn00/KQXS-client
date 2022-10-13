@@ -1,0 +1,22 @@
+.sidebar-account {
+	border: 1px solid #ccc;
+	padding: 8px 16px;
+	border-radius: 8px;
+}
+
+.sidebar-account a {
+	color: #000;
+	text-decoration: none;
+	font-size: 16px;
+	display: block;
+	padding: 4px;
+}
+
+.sidebar-account strong {
+	padding-bottom: 10px;
+	display: block;
+}
+
+.sidebar-account a:hover {
+	text-decoration: underline;
+}

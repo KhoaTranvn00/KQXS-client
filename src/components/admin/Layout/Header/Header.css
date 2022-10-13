@@ -1,0 +1,25 @@
+.header-admin {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #fff;
+	padding: 20px;
+}
+
+.header-admin a {
+	color: #3c93e2;
+	text-decoration: none;
+}
+
+.header-admin .a {
+	color: #3c93e2;
+	text-decoration: none;
+	display: inline-block;
+	margin-left: 10px;
+	background: #fff;
+	border: none;
+}
+
+.header-admin a:hover {
+	text-decoration: underline;
+}

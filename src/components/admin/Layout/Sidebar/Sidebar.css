@@ -1,0 +1,24 @@
+.sidebar-admin {
+	background: #3c93e2;
+	color: #fff;
+	width: 300px;
+	min-height: 100vh;
+	padding: 30px;
+}
+
+.sidebar-admin ul {
+	list-style-type: none;
+}
+
+.sidebar-admin ul li {
+	margin: 20px;
+}
+
+.sidebar-admin ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.sidebar-admin ul li a:hover {
+	text-decoration: underline;
+}
