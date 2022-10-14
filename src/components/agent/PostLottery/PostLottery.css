@@ -1,3 +1,8 @@
+.nav__item-switch {
+	width: 50%;
+	text-align: center;
+}
+
 .lottery-form {
 	width: auto;
 	border: 1px solid #ccc;
