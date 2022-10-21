@@ -1,12 +1,14 @@
-import userApi from "api/user/userApi";
+import agentApi from "api/user/agentApi";
 import React, { useEffect, useState } from "react";
 import "./PostedLottery.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
+import Pagination from "components/utils/Pagination/Pagination";
 
 const PostedLottery = () => {
 	const [veDaMuas, setVeDaMuas] = useState(null);
 	const [tg, setTg] = useState(null);
+	const [pagination, setPagination] = useState(null);
 	const [status, setStatus] = useState(-1);
 	const [sort, setSort] = useState({});
 
@@ -25,9 +27,11 @@ const PostedLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await userApi.veDaMua();
+				const response = await agentApi.getPostedLottery();
+				console.log(response);
 				if (response.success) {
-					setVeDaMuas(response.veDaMuas);
+					setVeDaMuas(response.vesos);
+					setPagination(response.pagination);
 				}
 			} catch (error) {
 				console.log(error);
@@ -51,11 +55,11 @@ const PostedLottery = () => {
 		e.preventDefault();
 		const params = { tg: tg.value || null, status: status.value || null };
 		try {
-			const response = await userApi.veDaMua(params);
+			const response = await agentApi.getPostedLottery(params);
 			if (response.success) {
 				console.log("filter response");
 				console.log(response);
-				setVeDaMuas(response.veDaMuas);
+				setVeDaMuas(response.vesos);
 			}
 		} catch (error) {
 			console.log(error);
@@ -64,10 +68,10 @@ const PostedLottery = () => {
 
 	const handleRemoveFilter = async () => {
 		try {
-			const response = await userApi.veDaMua();
+			const response = await agentApi.getPostedLottery();
 			if (response.success) {
 				// console.log(response);
-				setVeDaMuas(response.veDaMuas);
+				setVeDaMuas(response.vesos);
 			}
 		} catch (error) {
 			console.log(error);
@@ -105,10 +109,10 @@ const PostedLottery = () => {
 
 	return (
 		<div className="lottery-bought">
-			<h1>Danh sách vé đã mua</h1>
+			<h1>Danh sách vé đã đăng</h1>
 			{veDaMuas && veDaMuas.length === 0 && (
 				<p>
-					Bạn chưa mua vé số nào <Link to="../mua-ve-so">nhấn vào đây</Link> để
+					Bạn chưa đăng vé số nào <Link to="../mua-ve-so">nhấn vào đây</Link> để
 					mua vé số
 				</p>
 			)}
@@ -166,7 +170,7 @@ const PostedLottery = () => {
 							<th>Vé số</th>
 							<th onClick={() => handleSortClick("soluong")}>Số lượng</th>
 							<th>Đài</th>
-							<th onClick={() => handleSortClick("ngay")}>Ngày mua</th>
+							<th onClick={() => handleSortClick("ngay")}>Ngày đăng</th>
 							<th onClick={() => handleSortClick("status")}>Trạng thái</th>
 							<th>Xem vé dò</th>
 						</tr>
@@ -199,6 +203,7 @@ const PostedLottery = () => {
 					</table>
 				</>
 			)}
+			{pagination && <Pagination pagination={pagination} />}
 		</div>
 	);
 };

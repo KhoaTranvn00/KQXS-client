@@ -1,4 +1,4 @@
-import userApi from "api/user/userApi";
+import agentApi from "api/user/agentApi";
 import utilsApi from "api/utils/utilsApi";
 import Alert from "components/utils/Alert/Alert";
 import React, { useEffect, useState } from "react";
@@ -8,7 +8,8 @@ import compareDate from "utils/compareDate";
 
 const SeriForm = () => {
 	const [ngay, setNgay] = useState(new Date());
-	const [veso, setVeso] = useState("");
+	const [namSoSau, setnamSoSau] = useState("");
+	const [kihieu, setkihieu] = useState("");
 	const [daiOption, setDaiOption] = useState({
 		label: "chon ngay",
 		value: null,
@@ -19,7 +20,7 @@ const SeriForm = () => {
 
 	const alertHook = useAlert();
 
-	const formValue = { ngay, veso, dai: daiOption, soluong };
+	const formValue = { ngay, namSoSau, dai: daiOption, soluong, kihieu };
 
 	const [options, setOptions] = useState([{ label: "Chọn ngày", value: null }]);
 
@@ -35,19 +36,20 @@ const SeriForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (veso.length != 6) {
-			alertHook.error("Vui lòng nhập đủ 6 số của vé mua");
+		if (namSoSau.length != 5) {
+			alertHook.error("Vui lòng nhập đúng 5 số cuối của vé mua");
 			return;
 		}
-		if (!ngay || !veso || !daiOption || soluong < 1) {
+		if (!ngay || !namSoSau || !daiOption || soluong < 1) {
 			alertHook.error("Vui lòng điền đầy đủ các trường");
 			return;
 		}
 		try {
-			const response = await userApi.muaVeSo(formValue);
+			console.log(formValue);
+			const response = await agentApi.upLotterySeri(formValue);
 			console.log(response);
 			if (response.success) {
-				alertHook.success("Mua vé số thành công. Chúc bạn may mắn");
+				alertHook.success(response.message);
 			}
 		} catch (error) {
 			console.log(error);
@@ -69,11 +71,12 @@ const SeriForm = () => {
 			setNgay(e.target.value);
 		}
 	};
+
 	return (
 		<div className="lottery-form">
 			{alert && <Alert info={alert} />}
 			<div className="lottery-form__header">
-				Đăng vé số Online - Theo lốc seri
+				Đăng vé số Online - Đăng theo seri
 			</div>
 			<form onSubmit={handleSubmit} className="lottery-form__content">
 				<div className="lottery-form__control">
@@ -103,17 +106,29 @@ const SeriForm = () => {
 				</div>
 				<div className="lottery-form__control">
 					<label htlmFor="" className="lottery-form__label">
-						Vé số:
+						Kí hiệu:
 					</label>
 					<input
-						name="veso"
-						value={veso}
-						onChange={(e) => setVeso(e.target.value)}
+						name="kihieu"
+						value={kihieu}
+						onChange={(e) => setkihieu(e.target.value)}
 						className="lottery-form__input"
 						type="text"
 					/>
 				</div>
 				<div className="lottery-form__control">
+					<label htlmFor="" className="lottery-form__label">
+						Vé số (5 số cuối của vé số):
+					</label>
+					<input
+						name="namSoSau"
+						value={namSoSau}
+						onChange={(e) => setnamSoSau(e.target.value)}
+						className="lottery-form__input"
+						type="text"
+					/>
+				</div>
+				{/* <div className="lottery-form__control">
 					<label htlmFor="" className="lottery-form__label">
 						Số lượng:
 					</label>
@@ -127,8 +142,8 @@ const SeriForm = () => {
 						className="lottery-form__input"
 						type="number"
 					/>
-				</div>
-				<button className="lottery-form__btn">Đăng vé số theo lốc Seri</button>
+				</div> */}
+				<button className="lottery-form__btn">Đăng vé số theo seri</button>
 			</form>
 		</div>
 	);

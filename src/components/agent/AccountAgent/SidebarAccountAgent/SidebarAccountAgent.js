@@ -12,7 +12,7 @@ const SidebarAccountAgent = () => {
 				<strong>Chao {user && user.username}</strong>
 				<Link to="thong-bao">Thông báo</Link>
 				<Link to="dang-ve-so">Đăng vé số</Link>
-				<Link to="ve-da-mua">Quản lý vé bán</Link>
+				<Link to="ve-da-dang">Quản lý vé bán</Link>
 			</div>
 		</div>
 	);

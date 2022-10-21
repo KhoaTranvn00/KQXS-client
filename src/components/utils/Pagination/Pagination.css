@@ -1,0 +1,15 @@
+.pagination ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style-type: none;
+	margin: 8px;
+}
+
+.pagination ul li {
+	background: rgb(84, 152, 192);
+	padding: 8px 12px;
+	border: solid 1px #000;
+	cursor: pointer;
+	color: #fff;
+}

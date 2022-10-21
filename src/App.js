@@ -5,6 +5,7 @@ import Layout from "components/admin/Layout/Layout";
 import QLVM from "components/admin/QLVM/QLVM";
 import SetKQXS from "components/admin/SetKQXS/SetKQXS";
 import AccountAgent from "components/agent/AccountAgent/AccountAgent";
+import PostedLottery from "components/agent/PostedLottery/PostedLottery";
 import PostLottery from "components/agent/PostLottery/PostLottery";
 import Login from "components/user/auth/Login/Login";
 import Register from "components/user/auth/Login/Register";
@@ -85,7 +86,7 @@ function App() {
 				</Route>
 				<Route path="agent" element={<AccountAgent />}>
 					<Route path="dang-ve-so" element={<PostLottery />} />
-					{/* <Route path="ve-da-mua" element={<LotteryBought />} /> */}
+					<Route path="ve-da-dang" element={<PostedLottery />} />
 					{/* <Route path="thong-bao" element={<Notify />} /> */}
 				</Route>
 			</Routes>

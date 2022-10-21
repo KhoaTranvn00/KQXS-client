@@ -1,6 +1,10 @@
 .nav__item-switch {
 	width: 50%;
 	text-align: center;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 700;
+	padding: 4px;
 }
 
 .lottery-form {
