@@ -23,7 +23,6 @@ function Items({ currentItems }) {
 function Pagination({ pagination }) {
 	const navigate = useNavigate();
 
-	console.log(pagination);
 	const { itemsPerPage, totalPage: pageCount } = pagination;
 	// We start with an empty list of items.
 	// const [currentItems, setCurrentItems] = useState(null);
@@ -42,7 +41,14 @@ function Pagination({ pagination }) {
 
 	// Invoke when user click to request another page.
 	const handlePageClick = (event) => {
-		const url = `//${window.location.href}?page=${event.selected + 1}`;
+		const currentUrl = window.location.href;
+		let locationUrl = currentUrl.slice(7);
+		const indexPage = locationUrl.indexOf("page");
+		if (indexPage > 0) {
+			locationUrl = locationUrl.slice(0, indexPage - 1);
+		}
+		const urlRedirect = `//${locationUrl}?page=${event.selected + 1}`;
+		const url = urlRedirect;
 		navigate(url);
 	};
 

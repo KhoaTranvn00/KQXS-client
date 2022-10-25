@@ -4,6 +4,7 @@ import "./PostedLottery.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
+import { useLocation } from "react-router-dom";
 
 const PostedLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
@@ -11,6 +12,8 @@ const PostedLottery = () => {
 	const [pagination, setPagination] = useState(null);
 	const [status, setStatus] = useState(-1);
 	const [sort, setSort] = useState({});
+	const search = useLocation().search;
+	const page = new URLSearchParams(search).get("page");
 
 	const tgOptions = [
 		{ label: "Hôm nay", value: "today" },
@@ -27,8 +30,7 @@ const PostedLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await agentApi.getPostedLottery();
-				console.log(response);
+				const response = await agentApi.getPostedLottery(page);
 				if (response.success) {
 					setVeDaDangs(response.vesos);
 					setPagination(response.pagination);
@@ -36,12 +38,10 @@ const PostedLottery = () => {
 			} catch (error) {
 				console.log(error);
 			}
-			console.log(1);
 		})();
-	}, []);
+	}, [page]);
 
 	const handleSortClick = (target) => {
-		console.log(target);
 		if (sort.hasOwnProperty(target)) {
 			setSort({
 				[target]: !sort[target],
@@ -55,10 +55,9 @@ const PostedLottery = () => {
 		e.preventDefault();
 		const params = { tg: tg.value || null, status: status.value || null };
 		try {
+			console.log(params);
 			const response = await agentApi.getPostedLottery(params);
 			if (response.success) {
-				console.log("filter response");
-				console.log(response);
 				setVeDaDangs(response.vesos);
 			}
 		} catch (error) {
@@ -70,7 +69,6 @@ const PostedLottery = () => {
 		try {
 			const response = await agentApi.getPostedLottery();
 			if (response.success) {
-				// console.log(response);
 				setVeDaDangs(response.vesos);
 			}
 		} catch (error) {
@@ -79,7 +77,6 @@ const PostedLottery = () => {
 	};
 
 	useEffect(() => {
-		console.log(sort);
 		function compare(a, b) {
 			if (a[Object.keys(sort)[0]] < b[Object.keys(sort)[0]]) {
 				return sort[Object.keys(sort)[0]] ? -1 : 1;
@@ -89,9 +86,6 @@ const PostedLottery = () => {
 			}
 			return 0;
 		}
-		console.log("effect");
-		console.log(sort);
-		console.log(veDaDangs);
 		setVeDaDangs((preVeMuas) => (preVeMuas ? preVeMuas.sort(compare) : null));
 	}, [sort]);
 
@@ -119,7 +113,7 @@ const PostedLottery = () => {
 			{veDaDangs && (
 				<form
 					className="filter-form"
-					onSubmit={handleOnFilterSubmit}
+					// onSubmit={handleOnFilterSubmit}
 					style={{
 						border: "1px solid #ccc",
 						margin: "10px",

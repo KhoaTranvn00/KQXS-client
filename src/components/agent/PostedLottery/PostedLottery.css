@@ -9,3 +9,8 @@
 	border: 1px solid black;
 	padding: 4px 16px;
 }
+
+.lottery-bought .selected {
+	background: #2151be;
+	color: #fff;
+}
