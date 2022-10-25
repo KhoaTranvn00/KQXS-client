@@ -6,6 +6,8 @@ const userApi = {
 	muaVeSo: (formValue) => axiosClient.post("/user/mua-ve-so", formValue),
 	veDaMua: (params) => axiosClient.get("/user/ve-da-mua", { params }),
 	thongBao: () => axiosClient.get("/user/thong-bao"),
+	getVeSoDeMua: (formValue) =>
+		axiosClient.get("/user/get-ve-de-mua", formValue),
 };
 
 export default userApi;

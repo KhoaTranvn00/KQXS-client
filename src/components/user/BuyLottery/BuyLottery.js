@@ -4,6 +4,7 @@ import Alert from "components/utils/Alert/Alert";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useAlert } from "react-alert";
+import { Link } from "react-router-dom";
 import "./BuyLottery.css";
 
 const BuyLottery = () => {
@@ -14,12 +15,24 @@ const BuyLottery = () => {
 		value: null,
 	});
 	const [soluong, setSoluong] = useState(1);
+	const [veDeMuas, setVeDeMuas] = useState(null);
+	const [sort, setSort] = useState({});
 	const [alert, setAlert] = useState(null);
 	const alertHook = useAlert();
 
 	const formValue = { ngay, veso, dai: daiOption, soluong };
 
 	const [options, setOptions] = useState([{ label: "Chọn ngày", value: null }]);
+
+	useEffect(() => {
+		(async () => {
+			console.log(123);
+			const response = await userApi.getVeSoDeMua();
+			if (response.success) {
+				setVeDeMuas(response.vesos);
+			}
+		})();
+	}, []);
 
 	useEffect(() => {
 		(async () => {
@@ -62,6 +75,29 @@ const BuyLottery = () => {
 			setNgay(e.target.value);
 		}
 	};
+
+	const handleSortClick = (target) => {
+		console.log(target);
+		if (sort.hasOwnProperty(target)) {
+			setSort({
+				[target]: !sort[target],
+			});
+		} else {
+			setSort({ [target]: true });
+		}
+	};
+
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, "0");
+	}
+
+	function formatDate(date) {
+		return [
+			padTo2Digits(date.getDate()),
+			padTo2Digits(date.getMonth() + 1),
+			date.getFullYear(),
+		].join("-");
+	}
 
 	return (
 		<div className="lottery-form">
@@ -124,6 +160,47 @@ const BuyLottery = () => {
 				</div>
 				<button className="lottery-form__btn">Mua vé số</button>
 			</form>
+			{veDeMuas && veDeMuas.length > 0 && (
+				<>
+					<table>
+						<tr>
+							<th>STT</th>
+							<th>Vé số</th>
+							<th onClick={() => handleSortClick("soluong")}>Số lượng</th>
+							<th>Đài</th>
+							<th onClick={() => handleSortClick("ngay")}>Ngày đăng</th>
+							<th onClick={() => handleSortClick("status")}>Trạng thái</th>
+							<th>Xem vé dò</th>
+						</tr>
+						{veDeMuas.map((veDaMua, index) => (
+							<tr>
+								{}
+								<td>{index + 1}</td>
+								<td>{veDaMua.veso}</td>
+								<td>{veDaMua.soluong}</td>
+								<td>{veDaMua.daiId.ten}</td>
+								<td>{formatDate(new Date(veDaMua.ngay))}</td>
+								{veDaMua.status === 0 ? (
+									<td style={{ backgroundColor: "#ffcc009e" }}>Chưa dò</td>
+								) : veDaMua.status === 1 ? (
+									<td style={{ backgroundColor: "#ff0000d6" }}>Không trúng</td>
+								) : (
+									<td style={{ backgroundColor: "#6fff00d6" }}>Trúng thưởng</td>
+								)}
+								<td>
+									<Link
+										to={`/kqxs/mien-nam/${veDaMua.daiId.slug}/${formatDate(
+											new Date(veDaMua.ngay)
+										)}`}
+									>
+										Xem
+									</Link>
+								</td>
+							</tr>
+						))}
+					</table>
+				</>
+			)}
 		</div>
 	);
 };

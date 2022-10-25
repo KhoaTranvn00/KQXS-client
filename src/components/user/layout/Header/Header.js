@@ -9,7 +9,6 @@ import { unwrapResult } from "@reduxjs/toolkit";
 
 const Header = () => {
 	const userState = useSelector((state) => state.user);
-	console.log("userState", userState);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 

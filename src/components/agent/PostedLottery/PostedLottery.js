@@ -6,7 +6,7 @@ import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
 
 const PostedLottery = () => {
-	const [veDaMuas, setVeDaMuas] = useState(null);
+	const [veDaDangs, setVeDaDangs] = useState(null);
 	const [tg, setTg] = useState(null);
 	const [pagination, setPagination] = useState(null);
 	const [status, setStatus] = useState(-1);
@@ -30,7 +30,7 @@ const PostedLottery = () => {
 				const response = await agentApi.getPostedLottery();
 				console.log(response);
 				if (response.success) {
-					setVeDaMuas(response.vesos);
+					setVeDaDangs(response.vesos);
 					setPagination(response.pagination);
 				}
 			} catch (error) {
@@ -59,7 +59,7 @@ const PostedLottery = () => {
 			if (response.success) {
 				console.log("filter response");
 				console.log(response);
-				setVeDaMuas(response.vesos);
+				setVeDaDangs(response.vesos);
 			}
 		} catch (error) {
 			console.log(error);
@@ -71,7 +71,7 @@ const PostedLottery = () => {
 			const response = await agentApi.getPostedLottery();
 			if (response.success) {
 				// console.log(response);
-				setVeDaMuas(response.vesos);
+				setVeDaDangs(response.vesos);
 			}
 		} catch (error) {
 			console.log(error);
@@ -91,8 +91,8 @@ const PostedLottery = () => {
 		}
 		console.log("effect");
 		console.log(sort);
-		console.log(veDaMuas);
-		setVeDaMuas((preVeMuas) => (preVeMuas ? preVeMuas.sort(compare) : null));
+		console.log(veDaDangs);
+		setVeDaDangs((preVeMuas) => (preVeMuas ? preVeMuas.sort(compare) : null));
 	}, [sort]);
 
 	function padTo2Digits(num) {
@@ -110,13 +110,13 @@ const PostedLottery = () => {
 	return (
 		<div className="lottery-bought">
 			<h1>Danh sách vé đã đăng</h1>
-			{veDaMuas && veDaMuas.length === 0 && (
+			{veDaDangs && veDaDangs.length === 0 && (
 				<p>
 					Bạn chưa đăng vé số nào <Link to="../mua-ve-so">nhấn vào đây</Link> để
 					mua vé số
 				</p>
 			)}
-			{veDaMuas && (
+			{veDaDangs && (
 				<form
 					className="filter-form"
 					onSubmit={handleOnFilterSubmit}
@@ -162,7 +162,7 @@ const PostedLottery = () => {
 					</span>
 				</form>
 			)}
-			{veDaMuas && veDaMuas.length > 0 && (
+			{veDaDangs && veDaDangs.length > 0 && (
 				<>
 					<table>
 						<tr>
@@ -174,7 +174,7 @@ const PostedLottery = () => {
 							<th onClick={() => handleSortClick("status")}>Trạng thái</th>
 							<th>Xem vé dò</th>
 						</tr>
-						{veDaMuas.map((veDaMua, index) => (
+						{veDaDangs.map((veDaMua, index) => (
 							<tr>
 								{}
 								<td>{index + 1}</td>

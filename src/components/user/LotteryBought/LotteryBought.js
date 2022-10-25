@@ -75,7 +75,6 @@ const LotteryBought = () => {
 	};
 
 	useEffect(() => {
-		console.log(sort);
 		function compare(a, b) {
 			if (a[Object.keys(sort)[0]] < b[Object.keys(sort)[0]]) {
 				return sort[Object.keys(sort)[0]] ? -1 : 1;
@@ -85,9 +84,6 @@ const LotteryBought = () => {
 			}
 			return 0;
 		}
-		console.log("effect");
-		console.log(sort);
-		console.log(veDaMuas);
 		setVeDaMuas((preVeMuas) => (preVeMuas ? preVeMuas.sort(compare) : null));
 	}, [sort]);
 
