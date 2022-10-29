@@ -8,6 +8,7 @@ const userApi = {
 	thongBao: () => axiosClient.get("/user/thong-bao"),
 	getVeSoDeMua: (formValue) =>
 		axiosClient.get("/user/get-ve-de-mua", formValue),
+	getVeSoDeMua: (query) => axiosClient.get(`/user/get-ve-de-mua?${query}`),
 };
 
 export default userApi;

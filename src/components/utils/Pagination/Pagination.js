@@ -47,10 +47,17 @@ function Pagination({ pagination }) {
 		if (indexPage > 0) {
 			locationUrl = locationUrl.slice(0, indexPage - 1);
 		}
-		const urlRedirect = `//${locationUrl}?page=${event.selected + 1}`;
-		const url = urlRedirect;
-		navigate(url);
+		const indexQuery = locationUrl.indexOf("?");
+		let urlRedirect;
+		if (indexQuery > 0) {
+			urlRedirect = `//${locationUrl}&page=${event.selected + 1}`;
+		} else {
+			urlRedirect = `//${locationUrl}?page=${event.selected + 1}`;
+		}
+		navigate(urlRedirect);
 	};
+
+	const pageCurrent = 2;
 
 	return (
 		<>
@@ -64,6 +71,9 @@ function Pagination({ pagination }) {
 					pageCount={pageCount}
 					previousLabel="< previous"
 					renderOnZeroPageCount={null}
+					selectedPage={pageCurrent}
+					selected={pageCurrent}
+					initialSelected={2}
 				/>
 			</div>
 		</>

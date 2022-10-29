@@ -49,3 +49,8 @@
 	background: rgb(218, 214, 10);
 	color: #000;
 }
+
+.chon {
+	cursor: pointer;
+	color: rgb(3, 98, 187);
+}

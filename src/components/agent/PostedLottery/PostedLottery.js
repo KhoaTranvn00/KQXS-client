@@ -1,21 +1,38 @@
 import agentApi from "api/user/agentApi";
-import React, { useEffect, useState } from "react";
+import utilsApi from "api/utils/utilsApi";
+import React, { useEffect, useRef, useState } from "react";
 import "./PostedLottery.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 const PostedLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
 	const [tg, setTg] = useState(null);
 	const [pagination, setPagination] = useState(null);
-	const [status, setStatus] = useState(-1);
+	const [status, setStatus] = useState(null);
 	const [sort, setSort] = useState({});
+	const [veso, setVeso] = useState("");
+	const [daiOption, setDaiOption] = useState({
+		label: "chon ngay",
+		value: null,
+	});
+	const [ngay, setNgay] = useState("");
+	const [options, setOptions] = useState([{ label: "Chọn ngày", value: null }]);
+	const [queryUrl, setQueryUrl] = useState("");
+
+	const navigate = useNavigate();
 	const search = useLocation().search;
 	const page = new URLSearchParams(search).get("page");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const url = window.location.href;
+	const myRef = useRef(null);
+
+	const executeScroll = () => myRef.current.scrollIntoView();
 
 	const tgOptions = [
+		{ label: "Tương lai", value: "future" },
 		{ label: "Hôm nay", value: "today" },
 		{ label: "3 ngày gần nhất", value: "3dago" },
 		{ label: "Trong tháng", value: "month" },
@@ -30,16 +47,55 @@ const PostedLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await agentApi.getPostedLottery(page);
+				const response = await agentApi.getPostedLottery();
 				if (response.success) {
 					setVeDaDangs(response.vesos);
 					setPagination(response.pagination);
+				} else {
+					setVeDaDangs([]);
+				}
+				const responseDai = await utilsApi.fullDaiMienNam();
+				if (responseDai.success) {
+					setDaiOption(responseDai.daiOption[0]);
+					setOptions(responseDai.daiOption);
 				}
 			} catch (error) {
 				console.log(error);
 			}
 		})();
-	}, [page]);
+	}, []);
+
+	useEffect(() => {
+		(async () => {
+			if (ngay) {
+				const response = await utilsApi.daiMienNamTheoNgay(ngay);
+				if (response.success) {
+					setDaiOption(response.daiOption[0]);
+					setOptions(response.daiOption);
+				}
+			}
+		})();
+	}, [ngay]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const indexQuery = url.indexOf("?");
+				const query = url.slice(indexQuery + 1);
+				const response = await agentApi.getPostedLottery(query);
+				if (response.success) {
+					setVeDaDangs(response.vesos);
+					setPagination(response.pagination);
+				} else {
+					setVeDaDangs([]);
+					setPagination(null);
+				}
+				executeScroll();
+			} catch (error) {
+				console.log(error);
+			}
+		})();
+	}, [url]);
 
 	const handleSortClick = (target) => {
 		if (sort.hasOwnProperty(target)) {
@@ -53,12 +109,28 @@ const PostedLottery = () => {
 
 	const handleOnFilterSubmit = async (e) => {
 		e.preventDefault();
-		const params = { tg: tg.value || null, status: status.value || null };
+		const body = {
+			veso,
+			ngay,
+			daiId: daiOption.value || null,
+			tg: tg ? tg.value : null,
+			status: status ? status.value : null,
+		};
+		let queryString = "";
+
+		for (const key in body) {
+			if (body[key]) {
+				queryString += `&${key}=${body[key]}`;
+			}
+		}
+		const query = queryString.slice(1);
+		setSearchParams(query);
+
 		try {
-			console.log(params);
-			const response = await agentApi.getPostedLottery(params);
+			const response = await agentApi.getPostedLottery(query);
 			if (response.success) {
 				setVeDaDangs(response.vesos);
+				setPagination(response.pagination);
 			}
 		} catch (error) {
 			console.log(error);
@@ -67,10 +139,22 @@ const PostedLottery = () => {
 
 	const handleRemoveFilter = async () => {
 		try {
-			const response = await agentApi.getPostedLottery();
-			if (response.success) {
-				setVeDaDangs(response.vesos);
+			const currentUrl = window.location.href;
+			let locationUrl = currentUrl.slice(7);
+			const indexQuery = locationUrl.indexOf("?");
+			let urlRedirect;
+			if (indexQuery > 0) {
+				urlRedirect = `//${locationUrl.slice(0, indexQuery)}`;
+				// urlRedirect = `//${locationUrl}&page=${event.selected + 1}`;
+			} else {
+				urlRedirect = `//${locationUrl}`;
 			}
+			navigate(urlRedirect);
+			// const response = await agentApi.getPostedLottery();
+			// if (response.success) {
+			// 	setVeDaDangs(response.vesos);
+			// 	setPagination(response.pagination);
+			// }
 		} catch (error) {
 			console.log(error);
 		}
@@ -101,25 +185,64 @@ const PostedLottery = () => {
 		].join("-");
 	}
 
+	const handleInputDateChange = (e) => {
+		setNgay(e.target.value);
+	};
+
 	return (
 		<div className="lottery-bought">
-			<h1>Danh sách vé đã đăng</h1>
-			{veDaDangs && veDaDangs.length === 0 && (
-				<p>
-					Bạn chưa đăng vé số nào <Link to="../mua-ve-so">nhấn vào đây</Link> để
-					mua vé số
-				</p>
-			)}
+			<h1 ref={myRef}>
+				Danh sách vé đã đăng
+				{pagination ? ` (${pagination.totalItem})` : ""}
+			</h1>
+			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
 			{veDaDangs && (
 				<form
 					className="filter-form"
-					// onSubmit={handleOnFilterSubmit}
+					onSubmit={handleOnFilterSubmit}
 					style={{
 						border: "1px solid #ccc",
 						margin: "10px",
 						padding: "20px",
 					}}
 				>
+					<div className="lottery-form__control">
+						<label htlmFor="" className="lottery-form__label">
+							Vé số:
+						</label>
+						<input
+							name="veso"
+							value={veso}
+							onChange={(e) => setVeso(e.target.value)}
+							className="lottery-form__input"
+							type="text"
+						/>
+					</div>
+					<div className="lottery-form__control">
+						<label htlmFor="" className="lottery-form__label">
+							Ngày:
+						</label>
+						<input
+							name="ngay"
+							value={ngay}
+							onChange={handleInputDateChange}
+							className="lottery-form__input"
+							type="date"
+						/>
+					</div>
+					<div className="lottery-form__control">
+						<label htlmFor="" className="lottery-form__label">
+							Tỉnh:
+						</label>
+						<Select
+							name="dai"
+							value={daiOption}
+							options={options}
+							onChange={setDaiOption}
+							className="lottery-form__input"
+							type="text"
+						/>
+					</div>
 					<div className="lottery-form__control">
 						<label htlmFor="" className="lottery-form__label">
 							Thời gian:
@@ -163,6 +286,7 @@ const PostedLottery = () => {
 							<th>STT</th>
 							<th>Vé số</th>
 							<th onClick={() => handleSortClick("soluong")}>Số lượng</th>
+							<th onClick={() => handleSortClick("soluong")}>Đã bán</th>
 							<th>Đài</th>
 							<th onClick={() => handleSortClick("ngay")}>Ngày đăng</th>
 							<th onClick={() => handleSortClick("status")}>Trạng thái</th>
@@ -174,6 +298,7 @@ const PostedLottery = () => {
 								<td>{index + 1}</td>
 								<td>{veDaMua.veso}</td>
 								<td>{veDaMua.soluong}</td>
+								<td>{veDaMua.sold}</td>
 								<td>{veDaMua.daiId.ten}</td>
 								<td>{formatDate(new Date(veDaMua.ngay))}</td>
 								{veDaMua.status === 0 ? (
@@ -184,20 +309,24 @@ const PostedLottery = () => {
 									<td style={{ backgroundColor: "#6fff00d6" }}>Trúng thưởng</td>
 								)}
 								<td>
-									<Link
-										to={`/kqxs/mien-nam/${veDaMua.daiId.slug}/${formatDate(
-											new Date(veDaMua.ngay)
-										)}`}
-									>
-										Xem
-									</Link>
+									{veDaMua.status !== 0 ? (
+										<Link
+											to={`/kqxs/mien-nam/${veDaMua.daiId.slug}/${formatDate(
+												new Date(veDaMua.ngay)
+											)}`}
+										>
+											Xem
+										</Link>
+									) : (
+										"..."
+									)}
 								</td>
 							</tr>
 						))}
 					</table>
+					{pagination && <Pagination pagination={pagination} />}
 				</>
 			)}
-			{pagination && <Pagination pagination={pagination} />}
 		</div>
 	);
 };
