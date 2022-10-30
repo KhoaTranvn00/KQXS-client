@@ -22,7 +22,7 @@ const BuyLottery = () => {
 	const [ngay, setNgay] = useState("");
 	const [options, setOptions] = useState([{ label: "Chọn ngày", value: null }]);
 	const [queryUrl, setQueryUrl] = useState("");
-	const [vesoSlected, setVeSoSelected] = useState([]);
+	const [vesoSelected, setVeSoSelected] = useState([]);
 
 	const navigate = useNavigate();
 	const search = useLocation().search;
@@ -200,35 +200,85 @@ const BuyLottery = () => {
 	};
 
 	const handleSelectedVeSo = (veso) => {
-		const index = vesoSlected.findIndex((vesoS) => vesoS._id === veso._id);
+		const index = vesoSelected.findIndex((vesoS) => vesoS._id === veso._id);
 		console.log(index);
 		if (index === -1) {
 			setVeSoSelected([
-				...vesoSlected,
+				...vesoSelected,
 				{
 					...veso,
 					soVeMua: 1,
 				},
 			]);
+			alertHook.success("Thêm vé số thành công");
 		} else {
-			setVeSoSelected([
-				...vesoSlected.slice(0, index),
-				{ ...vesoSlected[0], soVeMua: ++vesoSlected[0].soVeMua },
-				...vesoSlected.slice(1),
-			]);
+			const preVeSoSelected = vesoSelected.slice(0, index);
+			const nextVeSoSelected = vesoSelected.slice(index + 1);
+			const currentSelected = vesoSelected[index];
+			if (currentSelected.soVeMua < currentSelected.soluong) {
+				currentSelected.soVeMua = currentSelected.soVeMua + 1;
+				setVeSoSelected([
+					...preVeSoSelected,
+					currentSelected,
+					...nextVeSoSelected,
+				]);
+				alertHook.success("Thêm vé số thành công");
+			} else {
+				alertHook.error("Bạn đã chọn tối đa số vé có thể chọn");
+			}
 		}
-		alertHook.success("Thêm vé số thành công");
-		console.log(vesoSlected);
 	};
 
 	const handleUnSlectedVoSo = (id) => {
-		setVeSoSelected(() => vesoSlected.filter((veso) => veso._id !== id));
+		setVeSoSelected(() => vesoSelected.filter((veso) => veso._id !== id));
+	};
+
+	const handleInputVeMuaChange = (e, id) => {
+		const index = vesoSelected.findIndex((vesoS) => vesoS._id === id);
+		const preVeSoSelected = vesoSelected.slice(0, index);
+		const nextVeSoSelected = vesoSelected.slice(index + 1);
+		const currentSelected = vesoSelected[index];
+		currentSelected.soVeMua = e.target.value;
+		console.log(currentSelected);
+		setVeSoSelected([...preVeSoSelected, currentSelected, ...nextVeSoSelected]);
+	};
+
+	const handleKeyUpInputVeMua = (e, veso) => {
+		if (e.target.value > veso.soluong) {
+			const index = vesoSelected.findIndex((vesoS) => vesoS._id === veso._id);
+			const preVeSoSelected = vesoSelected.slice(0, index);
+			const nextVeSoSelected = vesoSelected.slice(index + 1);
+			const currentSelected = vesoSelected[index];
+			currentSelected.soVeMua = currentSelected.soluong;
+			console.log(currentSelected);
+			setVeSoSelected([
+				...preVeSoSelected,
+				currentSelected,
+				...nextVeSoSelected,
+			]);
+		}
+		console.log(e.target.value);
+	};
+
+	const handleSubmitMuaVeSo = async () => {
+		const body = vesoSelected.map((veso) => ({
+			_id: veso._id,
+			soVeMua: veso.soVeMua,
+		}));
+		const response = await userApi.muaVeSo({ vemuas: body });
+		if (response.success) {
+			setVeDaDangs(response.vesos);
+			setPagination(response.pagination);
+		}
 	};
 
 	return (
 		<div className="lottery-bought">
-			<h1>Mua vé số</h1>
-			{vesoSlected && vesoSlected.length > 0 && (
+			<h1 ref={myRef}>
+				Mua vé số
+				{` (${vesoSelected.length})`}
+			</h1>
+			{vesoSelected && vesoSelected.length > 0 && (
 				<>
 					<table>
 						<tr>
@@ -241,19 +291,25 @@ const BuyLottery = () => {
 							<th>Số lượng mua</th>
 							<th>Bỏ chọn</th>
 						</tr>
-						{vesoSlected.map((veDaMua, index) => (
+						{vesoSelected.map((veDaMua, index) => (
 							<tr>
 								<td>{index + 1}</td>
 								<td>{veDaMua.veso}</td>
 								<td>{veDaMua.soluong}</td>
 								<td>{veDaMua.sold}</td>
-								{/* <td>{veDaMua.daiId.ten}</td> */}
+								<td>{veDaMua.daiId.ten}</td>
 								<td>{formatDate(new Date(veDaMua.ngay))}</td>
 								<td>
 									<input
 										style={{ width: "60px" }}
 										type="number"
+										min={1}
+										max={veDaMua.soluong}
 										value={veDaMua.soVeMua}
+										onChange={(event) =>
+											handleInputVeMuaChange(event, veDaMua._id)
+										}
+										onKeyUp={(event) => handleKeyUpInputVeMua(event, veDaMua)}
 									/>
 								</td>
 								<td>
@@ -267,9 +323,12 @@ const BuyLottery = () => {
 							</tr>
 						))}
 					</table>
+					<button className="lottery-form__btn" onClick={handleSubmitMuaVeSo}>
+						Mua vé đã chọn
+					</button>
 				</>
 			)}
-			<h3 ref={myRef}>
+			<h3>
 				Danh sách vé đã đăng
 				{pagination ? ` (${pagination.totalItem})` : ""}
 			</h3>

@@ -26,7 +26,7 @@ const RetailForm = () => {
 
 	useEffect(() => {
 		(async () => {
-			const response = await utilsApi.daiTheoNgay(ngay);
+			const response = await utilsApi.daiMienNamTheoNgay(ngay);
 			if (response.success) {
 				setDaiOption(response.daiOption[0]);
 				setOptions(response.daiOption);
