@@ -9,6 +9,7 @@ import PostedLottery from "components/agent/PostedLottery/PostedLottery";
 import PostLottery from "components/agent/PostLottery/PostLottery";
 import Login from "components/user/auth/Login/Login";
 import Register from "components/user/auth/Login/Register";
+import BoughtLottery from "components/user/BoughtLottery/BoughtLottery";
 import BuyLottery from "components/user/BuyLottery/BuyLottery";
 import DaiMB from "components/user/KQXS/MB/DaiMB/DaiMB";
 import ThuMB from "components/user/KQXS/MB/ThuMB/ThuMB";
@@ -74,7 +75,7 @@ function App() {
 				</Route>
 				<Route path="account" element={<Account />}>
 					<Route path="mua-ve-so" element={<BuyLottery />} />
-					<Route path="ve-da-mua" element={<LotteryBought />} />
+					<Route path="ve-da-mua" element={<BoughtLottery />} />
 					<Route path="thong-bao" element={<Notify />} />
 				</Route>
 				<Route path="admin" element={<Layout />}>

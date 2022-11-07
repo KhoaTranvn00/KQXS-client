@@ -1,14 +1,14 @@
 import userApi from "api/user/userApi";
 import utilsApi from "api/utils/utilsApi";
 import React, { useEffect, useRef, useState } from "react";
-import "./BuyLottery.css";
+import "./BoughtLottery.css";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 
-const BuyLottery = () => {
+const BoughtLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
 	const [tg, setTg] = useState(null);
 	const [pagination, setPagination] = useState(null);
@@ -50,7 +50,7 @@ const BuyLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await userApi.getVeSoDeMua();
+				const response = await userApi.getVeSoDaMua();
 				if (response.success) {
 					setVeDaDangs(response.vesos);
 					setPagination(response.pagination);
@@ -85,7 +85,7 @@ const BuyLottery = () => {
 			try {
 				const indexQuery = url.indexOf("?");
 				const query = url.slice(indexQuery + 1);
-				const response = await userApi.getVeSoDeMua(query);
+				const response = await userApi.getVeSoDaMua(query);
 				if (response.success) {
 					setVeDaDangs(response.vesos);
 					setPagination(response.pagination);
@@ -130,7 +130,7 @@ const BuyLottery = () => {
 		setSearchParams(query);
 
 		try {
-			const response = await userApi.getVeSoDeMua(query);
+			const response = await userApi.getVeSoDaMua(query);
 			if (response.success) {
 				setVeDaDangs(response.vesos);
 				setPagination(response.pagination);
@@ -153,7 +153,7 @@ const BuyLottery = () => {
 				urlRedirect = `//${locationUrl}`;
 			}
 			navigate(urlRedirect);
-			// const response = await userApi.getVeSoDeMua();
+			// const response = await userApi.getVeSoDaMua();
 			// if (response.success) {
 			// 	setVeDaDangs(response.vesos);
 			// 	setPagination(response.pagination);
@@ -274,62 +274,10 @@ const BuyLottery = () => {
 
 	return (
 		<div className="lottery-bought">
-			<h1 ref={myRef}>
-				Mua vé số
-				{` (${vesoSelected.length})`}
-			</h1>
-			{vesoSelected && vesoSelected.length > 0 && (
-				<>
-					<table>
-						<tr>
-							<th>STT</th>
-							<th>Vé số</th>
-							<th onClick={() => handleSortClick("soluong")}>Vé còn</th>
-							<th>Đài</th>
-							<th onClick={() => handleSortClick("ngay")}>Ngày sổ</th>
-							<th>Số lượng mua</th>
-							<th>Bỏ chọn</th>
-						</tr>
-						{vesoSelected.map((veDaMua, index) => (
-							<tr>
-								<td>{index + 1}</td>
-								<td>{veDaMua.veso}</td>
-								<td>{veDaMua.soluong - veDaMua.sold}</td>
-								<td>{veDaMua.daiId.ten}</td>
-								<td>{formatDate(new Date(veDaMua.ngay))}</td>
-								<td>
-									<input
-										style={{ width: "60px" }}
-										type="number"
-										min={1}
-										max={veDaMua.soluong}
-										value={veDaMua.soVeMua}
-										onChange={(event) =>
-											handleInputVeMuaChange(event, veDaMua._id)
-										}
-										onKeyUp={(event) => handleKeyUpInputVeMua(event, veDaMua)}
-									/>
-								</td>
-								<td>
-									<span
-										class="chon"
-										onClick={() => handleUnSlectedVoSo(veDaMua._id)}
-									>
-										Bỏ chọn
-									</span>
-								</td>
-							</tr>
-						))}
-					</table>
-					<button className="lottery-form__btn" onClick={handleSubmitMuaVeSo}>
-						Mua vé đã chọn
-					</button>
-				</>
-			)}
-			<h3>
-				Danh sách vé đã đăng
+			<h1>
+				Danh sách vé đã mua
 				{pagination ? ` (${pagination.totalItem})` : ""}
-			</h3>
+			</h1>
 			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
 			{veDaDangs && (
 				<form
@@ -423,24 +371,37 @@ const BuyLottery = () => {
 							<th onClick={() => handleSortClick("soluong")}>Số lượng</th>
 							<th>Đài</th>
 							<th onClick={() => handleSortClick("ngay")}>Ngày sổ</th>
-							<th>Chọn mua</th>
+							<th>Tính trạng</th>
+							<th>Xem kết quả</th>
 						</tr>
 						{veDaDangs.map((veDaMua, index) => (
 							<tr>
 								{}
 								<td>{index + 1}</td>
-								<td>{veDaMua.veso}</td>
-								<td>{veDaMua.soluong - veDaMua.sold}</td>
-								<td>{veDaMua.daiId.ten}</td>
-								<td>{formatDate(new Date(veDaMua.ngay))}</td>
-								<td>
-									<span
-										class="chon"
-										onClick={() => handleSelectedVeSo(veDaMua)}
-									>
-										Chọn
-									</span>
-								</td>
+								<td>{veDaMua.vesoId.veso}</td>
+								<td>{veDaMua.soluong}</td>
+								<td>{veDaMua.vesoId.daiId.ten}</td>
+								<td>{formatDate(new Date(veDaMua.vesoId.ngay))}</td>
+								{veDaMua.vesoId.status === 0 ? (
+									<td style={{ backgroundColor: "#ffcc009e" }}>Chưa dò</td>
+								) : veDaMua.vesoId.status === 1 ? (
+									<td style={{ backgroundColor: "#ff0000d6" }}>Không trúng</td>
+								) : (
+									<td style={{ backgroundColor: "#6fff00d6" }}>Trúng thưởng</td>
+								)}
+								{veDaMua.vesoId.status !== 0 ? (
+									<td>
+										<Link
+											to={`/kqxs/mien-nam/${
+												veDaMua.vesoId.daiId.slug
+											}/${formatDate(new Date(veDaMua.vesoId.ngay))}`}
+										>
+											Xem
+										</Link>
+									</td>
+								) : (
+									<td>...</td>
+								)}
 							</tr>
 						))}
 					</table>
@@ -451,4 +412,4 @@ const BuyLottery = () => {
 	);
 };
 
-export default BuyLottery;
+export default BoughtLottery;

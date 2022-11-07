@@ -9,6 +9,7 @@ const userApi = {
 	getVeSoDeMua: (formValue) =>
 		axiosClient.get("/user/get-ve-de-mua", formValue),
 	getVeSoDeMua: (query) => axiosClient.get(`/user/get-ve-de-mua?${query}`),
+	getVeSoDaMua: (query) => axiosClient.get(`/user/get-ve-da-mua?${query}`),
 };
 
 export default userApi;
