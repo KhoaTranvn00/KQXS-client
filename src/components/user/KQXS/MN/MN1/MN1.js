@@ -16,7 +16,7 @@ const MN1 = ({ info }) => {
 			</div>
 			<table className="xs xsmn">
 				<tr className="gdb">
-					<td className="gl">Giai DB</td>
+					<td className="gl">Giải DB</td>
 					<td className="">
 						<div className="giai">
 							<div className="giaiso">{ketqua[0]}</div>
@@ -24,7 +24,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g1">
-					<td className="gl">Giai nhất</td>
+					<td className="gl">Giải nhất</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[1]}</div>
@@ -32,7 +32,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g2">
-					<td className="gl">Giai nhì</td>
+					<td className="gl">Giải nhì</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[2]}</div>
@@ -40,7 +40,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g3">
-					<td className="gl">Giai ba</td>
+					<td className="gl">Giải ba</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[3][0]}</div>
@@ -49,7 +49,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g4">
-					<td className="gl">Giai tư</td>
+					<td className="gl">Giải tư</td>
 					<td>
 						<div className="giai">
 							{ketqua[4].map((kq) => (
@@ -59,7 +59,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g5">
-					<td className="gl">Giai năm</td>
+					<td className="gl">Giải năm</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[5]}</div>
@@ -67,7 +67,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g6">
-					<td className="gl">Giai sáu</td>
+					<td className="gl">Giải sáu</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[6][0]}</div>
@@ -77,7 +77,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g7">
-					<td className="gl">Giai bảy</td>
+					<td className="gl">Giải bảy</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[7]}</div>
@@ -85,7 +85,7 @@ const MN1 = ({ info }) => {
 					</td>
 				</tr>
 				<tr className="g8">
-					<td className="gl">Giai tám</td>
+					<td className="gl">Giải tám</td>
 					<td>
 						<div className="giai">
 							<div className="giaiso">{ketqua[8]}</div>
