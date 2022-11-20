@@ -195,6 +195,14 @@ const PostedLottery = () => {
 				Danh sách vé đã đăng
 				{pagination ? ` (${pagination.totalItem})` : ""}
 			</h1>
+			<h3>
+				Tổng vé đã đăng
+				{pagination ? ` (${pagination.totalVeDaDang})` : ""}
+			</h3>
+			<h3>
+				Tổng vé đã bán
+				{pagination ? ` (${pagination.totalVeDaBan})` : ""}
+			</h3>
 			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
 			{veDaDangs && (
 				<form
