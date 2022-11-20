@@ -30,7 +30,8 @@ const Account = () => {
 			<Footer />
 		</>
 	) : (
-		<Navigate to="/auth/login" />
+		// <Navigate to="/auth/login" />
+		<></>
 	);
 };
 

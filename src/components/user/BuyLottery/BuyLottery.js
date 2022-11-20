@@ -82,6 +82,21 @@ const BuyLottery = () => {
 
 	useEffect(() => {
 		(async () => {
+			const success = searchParams.get("success");
+			if (success !== undefined) {
+				if (success === true) {
+					alertHook.success("Thanh toán thành công");
+				} else {
+					alertHook.error("Thanh toán thất bại");
+				}
+			}
+			console.log(searchParams);
+			console.log(success);
+		})();
+	}, [searchParams]);
+
+	useEffect(() => {
+		(async () => {
 			try {
 				const indexQuery = url.indexOf("?");
 				const query = url.slice(indexQuery + 1);
@@ -330,6 +345,9 @@ const BuyLottery = () => {
 				Danh sách vé đã đăng
 				{pagination ? ` (${pagination.totalItem})` : ""}
 			</h3>
+			<form action="http://localhost:4000/api/pay/pay" method="post">
+				<input type="submit" value="Buy"></input>
+			</form>
 			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
 			{veDaDangs && (
 				<form
