@@ -22,6 +22,7 @@ import Auth from "components/user/layout/Auth/Auth";
 import LotteryBought from "components/user/LotteryBought/LotteryBought";
 import Notify from "components/user/Notify/Notify";
 import Account from "components/user/Page/Account/Account";
+import { Pay } from "components/user/Pay/Pay";
 import ThongBaoUser from "components/user/ThongBaoUser/ThongBaoUser";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -78,6 +79,7 @@ function App() {
 					<Route path="mua-ve-so" element={<BuyLottery />} />
 					<Route path="ve-da-mua" element={<BoughtLottery />} />
 					<Route path="thong-bao" element={<ThongBaoUser />} />
+					<Route path="pay" element={<Pay />} />
 				</Route>
 				<Route path="admin" element={<Layout />}>
 					<Route path="dang-nhap" element={<LoginAdmin />} />

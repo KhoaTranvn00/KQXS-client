@@ -331,6 +331,12 @@ const BuyLottery = () => {
 				{pagination ? ` (${pagination.totalItem})` : ""}
 			</h3>
 			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
+			<form
+				action="http://localhost:4000/api/pay/create_payment_url"
+				method="post"
+			>
+				<button>submit</button>
+			</form>
 			{veDaDangs && (
 				<form
 					className="filter-form"
