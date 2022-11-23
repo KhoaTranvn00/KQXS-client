@@ -1,15 +1,32 @@
 import React from "react";
-
-const handleOnSubmit = (e) => {};
+import userApi from "api/user/userApi";
+import { useNavigate } from "react-router-dom";
 
 export const Pay = () => {
+	const navigate = useNavigate();
+
+	const handleOnSubmit = async (e) => {
+		e.preventDefault();
+		const body = {
+			orderType: "topup",
+			amount: "100000",
+			orderDescription: "Thanh toan don hang thoi gian: 2022-11-23 21:11:01",
+			bankCode: "",
+			language: "vn",
+		};
+		const response = await userApi.pay({ ...body });
+		console.log(response);
+		navigate(`//${response.url}`);
+	};
+
 	return (
 		<div>
 			<div class="table-responsive">
 				<form
-					id="createOrder"
-					action="http://localhost:4000/api/pay/create_payment_url"
-					method="POST"
+					// id="createOrder"
+					// action="http://localhost:4000/api/pay/create_payment_url"
+					// method="POST"
+					onSubmit={handleOnSubmit}
 				>
 					<div class="form-group">
 						<label>Loại hàng hóa</label>

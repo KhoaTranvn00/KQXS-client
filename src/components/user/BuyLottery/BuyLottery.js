@@ -65,6 +65,12 @@ const BuyLottery = () => {
 			} catch (error) {
 				console.log(error);
 			}
+			const statusCode = searchParams.get("vnp_ResponseCode");
+			if (statusCode == 0) {
+				alertHook.success("Thanh toán thành công");
+			} else if (statusCode == 24) {
+				alertHook.error("Hủy thanh toán");
+			}
 		})();
 	}, []);
 
@@ -261,15 +267,22 @@ const BuyLottery = () => {
 	};
 
 	const handleSubmitMuaVeSo = async () => {
-		const body = vesoSelected.map((veso) => ({
-			_id: veso._id,
-			soVeMua: veso.soVeMua,
-		}));
-		const response = await userApi.muaVeSo({ vemuas: body });
-		if (response.success) {
-			setVeDaDangs(response.vesos);
-			setPagination(response.pagination);
-		}
+		// const body = vesoSelected.map((veso) => ({
+		// 	_id: veso._id,
+		// 	soVeMua: veso.soVeMua,
+		// }));
+		const amount =
+			vesoSelected.reduce((total, veso) => total + veso.soVeMua, 0) * 10000;
+		const body = {
+			orderType: "topup",
+			amount,
+			orderDescription: "Thanh toan don hang: Mua KQXS Minh Ngoc",
+			bankCode: "",
+			language: "vn",
+		};
+		const response = await userApi.pay({ ...body });
+		console.log(response);
+		navigate(`//${response.url}`);
 	};
 
 	return (

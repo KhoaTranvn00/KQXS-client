@@ -11,6 +11,7 @@ const userApi = {
 	getVeSoDeMua: (query) => axiosClient.get(`/user/get-ve-de-mua?${query}`),
 	getVeSoDaMua: (query) => axiosClient.get(`/user/get-ve-da-mua?${query}`),
 	getThongBao: (query) => axiosClient.get(`/user/get-thong-bao?${query}`),
+	pay: (formValue) => axiosClient.post("/pay/create_payment_url", formValue),
 };
 
 export default userApi;
