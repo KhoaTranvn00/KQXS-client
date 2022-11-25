@@ -66,7 +66,13 @@ const BuyLottery = () => {
 				console.log(error);
 			}
 			const statusCode = searchParams.get("vnp_ResponseCode");
-			if (statusCode == 0) {
+			if (statusCode) {
+				console.log("searchParam", searchParams);
+				const indexQuery = url.indexOf("?");
+				const query = url.slice(indexQuery + 1);
+				console.log("query", query);
+				const verifyPay = await userApi.verifyPay(query);
+				console.log("verifyPay", verifyPay);
 				alertHook.success("Thanh toán thành công");
 			} else if (statusCode == 24) {
 				alertHook.error("Hủy thanh toán");
@@ -282,6 +288,7 @@ const BuyLottery = () => {
 		};
 		const response = await userApi.pay({ ...body });
 		console.log(response);
+		localStorage.setItem("vesoSelected", JSON.stringify(vesoSelected));
 		navigate(`//${response.url}`);
 	};
 
