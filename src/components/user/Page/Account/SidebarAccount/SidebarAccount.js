@@ -13,6 +13,8 @@ const SidebarAccount = () => {
 				<Link to="thong-bao">Thông báo</Link>
 				<Link to="mua-ve-so">Mua vé số</Link>
 				<Link to="ve-da-mua">Vé đã mua</Link>
+				<Link to="thong-tin-tai-khoan">Thông tin tài khoản</Link>
+				<Link to="doi-mat-khau">Đổi mật khẩu</Link>
 			</div>
 		</div>
 	);

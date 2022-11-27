@@ -50,6 +50,27 @@ const BuyLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
+				document.title = "Mua vé số";
+				const statusCode = searchParams.get("vnp_ResponseCode");
+				if (statusCode) {
+					console.log("searchParam", searchParams);
+					const indexQuery = url.indexOf("?");
+					const query = url.slice(indexQuery + 1);
+					console.log("query", query);
+					const verifyPay = await userApi.verifyPay(query);
+					console.log("verifyPay", verifyPay);
+					alertHook[verifyPay.status](verifyPay.message);
+					if (verifyPay.status == "success") {
+						const vesoSelectedLocalStorage = JSON.parse(
+							localStorage.getItem("vesoSelected")
+						);
+						const body = vesoSelectedLocalStorage.map((veso) => ({
+							_id: veso._id,
+							soVeMua: veso.soVeMua,
+						}));
+						const response = await userApi.muaVeSo({ vemuas: body });
+					}
+				}
 				const response = await userApi.getVeSoDeMua();
 				if (response.success) {
 					setVeDaDangs(response.vesos);
@@ -64,18 +85,6 @@ const BuyLottery = () => {
 				}
 			} catch (error) {
 				console.log(error);
-			}
-			const statusCode = searchParams.get("vnp_ResponseCode");
-			if (statusCode) {
-				console.log("searchParam", searchParams);
-				const indexQuery = url.indexOf("?");
-				const query = url.slice(indexQuery + 1);
-				console.log("query", query);
-				const verifyPay = await userApi.verifyPay(query);
-				console.log("verifyPay", verifyPay);
-				alertHook.success("Thanh toán thành công");
-			} else if (statusCode == 24) {
-				alertHook.error("Hủy thanh toán");
 			}
 		})();
 	}, []);
@@ -351,12 +360,6 @@ const BuyLottery = () => {
 				{pagination ? ` (${pagination.totalItem})` : ""}
 			</h3>
 			{veDaDangs && veDaDangs.length === 0 && <p>Không có kết quả phù hợp</p>}
-			<form
-				action="http://localhost:4000/api/pay/create_payment_url"
-				method="post"
-			>
-				<button>submit</button>
-			</form>
 			{veDaDangs && (
 				<form
 					className="filter-form"

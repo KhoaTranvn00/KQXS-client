@@ -15,7 +15,7 @@ export const loadUser = createAsyncThunk("user/loadUser", async () => {
 const userSlice = createSlice({
 	name: "user",
 	initialState: {
-		isLoading: false,
+		isLoading: true,
 		isLogin: false,
 		user: null,
 		notify: [],

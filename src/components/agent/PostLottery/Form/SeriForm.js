@@ -36,6 +36,11 @@ const SeriForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const validVeso = /[0-9]{5}$/;
+		if (!validVeso.test(namSoSau)) {
+			alertHook.error("Vé số không hợp lệ");
+			return;
+		}
 		if (namSoSau.length != 5) {
 			alertHook.error("Vui lòng nhập đúng 5 số cuối của vé mua");
 			return;

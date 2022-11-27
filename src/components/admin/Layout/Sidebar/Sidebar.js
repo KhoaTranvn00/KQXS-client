@@ -13,6 +13,9 @@ const Sidebar = () => {
 				<li>
 					<Link to="/admin/account/quan-ly-ve-mua">Quản lý vé số đã mua</Link>
 				</li>
+				<li>
+					<Link to="/admin/account/them-dai-ly">Thêm đại lý</Link>
+				</li>
 			</ul>
 		</div>
 	);

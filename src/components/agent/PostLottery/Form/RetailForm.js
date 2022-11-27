@@ -36,6 +36,11 @@ const RetailForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const validVeso = /[0-9]{6}$/;
+		if (!validVeso.test(veso)) {
+			alertHook.error("Vé số không hợp lệ");
+			return;
+		}
 		if (veso.length != 6) {
 			alertHook.error("Vui lòng nhập đủ 6 số của vé mua");
 			return;

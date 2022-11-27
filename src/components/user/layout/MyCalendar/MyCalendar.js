@@ -11,8 +11,11 @@ const MyCalendar = () => {
 	const navigate = useNavigate();
 
 	const handleCalendarChange = (date) => {
+		const url = window.location.href;
+		let locationUrl = url.slice(7);
 		const dateSlug = formatDate.dayMonthFromDate(date);
-		navigate(dateSlug);
+		const urlNavigate = `//${locationUrl}/${dateSlug}`;
+		navigate(urlNavigate);
 	};
 
 	return (
