@@ -8,7 +8,7 @@ const Sidebar = () => {
 			<div className="header">Dashboard</div>
 			<ul>
 				<li>
-					<Link to="/admin/account/dat-kqxs">Đặt KQXS</Link>
+					<Link to="/admin/account/dat-kqxs">Lấy KQXS</Link>
 				</li>
 				<li>
 					<Link to="/admin/account/quan-ly-ve-mua">Quản lý vé số đã mua</Link>

@@ -50,7 +50,7 @@ const BuyLottery = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				document.title = "Mua vé số";
+				// document.title = "Mua vé số";
 				const statusCode = searchParams.get("vnp_ResponseCode");
 				if (statusCode) {
 					console.log("searchParam", searchParams);

@@ -1,5 +1,5 @@
 import Footer from "components/user/layout/Footer/Footer";
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../../layout/Header/Header";
 import MyCalendar from "../../layout/MyCalendar/MyCalendar";
@@ -8,6 +8,9 @@ import SideBar from "../../layout/Sidebar/Sidebar";
 import "./Home.css";
 
 const Home = () => {
+	useEffect(() => {
+		document.title = "KQXS Minh Ngọc";
+	}, []);
 	return (
 		<div>
 			<Header />
