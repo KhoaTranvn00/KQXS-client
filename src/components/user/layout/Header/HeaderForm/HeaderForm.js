@@ -5,9 +5,10 @@ import utilsApi from "api/utils/utilsApi";
 import userApi from "api/user/userApi";
 import Alert from "components/utils/Alert/Alert";
 import { useAlert } from "react-alert";
+import compareDate from "utils/compareDate";
 
 const HeaderForm = () => {
-	const [ngay, setNgay] = useState(null);
+	const [ngay, setNgay] = useState("");
 	const [veso, setVeso] = useState("");
 	const [daiOption, setDaiOption] = useState({
 		label: "chon ngay",
@@ -43,6 +44,21 @@ const HeaderForm = () => {
 		}
 	};
 
+	const handleInputDateChange = (e) => {
+		const today = new Date();
+		const ngay = new Date(e.target.value);
+		if (compareDate.compareDate(ngay, today) == 1) {
+			alertHook.error("Ngày không hợp lệ");
+		} else if (
+			compareDate.compareDate(ngay, today) == 0 &&
+			compareDate.verifyToday()
+		) {
+			alertHook.error("Ngày không hợp lệ");
+		} else {
+			setNgay(e.target.value);
+		}
+	};
+
 	return (
 		<div className="header-form">
 			{/* {alert && <Alert info={alert} />} */}
@@ -57,7 +73,7 @@ const HeaderForm = () => {
 					<input
 						name="ngay"
 						value={ngay}
-						onChange={(e) => setNgay(e.target.value)}
+						onChange={handleInputDateChange}
 						className="header-form__input"
 						type="date"
 					/>

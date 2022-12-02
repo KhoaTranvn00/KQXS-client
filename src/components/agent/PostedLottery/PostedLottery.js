@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import compareDate from "utils/compareDate";
+import { useAlert } from "react-alert";
 
 const PostedLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
@@ -21,6 +23,8 @@ const PostedLottery = () => {
 	const [ngay, setNgay] = useState("");
 	const [options, setOptions] = useState([{ label: "Chọn ngày", value: null }]);
 	const [queryUrl, setQueryUrl] = useState("");
+	const [alert, setAlert] = useState(null);
+	const alertHook = useAlert();
 
 	const navigate = useNavigate();
 	const search = useLocation().search;
@@ -186,7 +190,18 @@ const PostedLottery = () => {
 	}
 
 	const handleInputDateChange = (e) => {
-		setNgay(e.target.value);
+		const today = new Date();
+		const ngay = new Date(e.target.value);
+		if (compareDate.compareDate(ngay, today) == 1) {
+			alertHook.error("Ngày không hợp lệ");
+		} else if (
+			compareDate.compareDate(ngay, today) == 0 &&
+			compareDate.verifyToday()
+		) {
+			alertHook.error("Ngày không hợp lệ");
+		} else {
+			setNgay(e.target.value);
+		}
 	};
 
 	return (

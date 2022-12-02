@@ -24,7 +24,7 @@ const Layout = () => {
 	return (
 		<div className="layout">
 			<Sidebar style={{ width: "200px" }} />
-			<div className="container">
+			<div className="container setKQXS ">
 				<Header />
 				<Outlet />
 				<Footer />

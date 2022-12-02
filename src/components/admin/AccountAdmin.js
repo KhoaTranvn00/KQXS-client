@@ -12,8 +12,8 @@ const AccountAdmin = () => {
 				<Outlet />
 			</>
 		) : (
-			// <Navigate to="/admin/dang-nhap" />
-			<></>
+			<Navigate to="/admin/dang-nhap" />
+			// <></>
 		);
 };
 

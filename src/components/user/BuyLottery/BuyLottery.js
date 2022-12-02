@@ -7,6 +7,7 @@ import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useAlert } from "react-alert";
+import compareDate from "utils/compareDate";
 
 const BuyLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
@@ -213,7 +214,12 @@ const BuyLottery = () => {
 		console.log(e.target.value);
 		const today = new Date();
 		const ngay = new Date(e.target.value);
-		if (ngay < today) {
+		if (compareDate.compareDate(ngay, today) == 2) {
+			alertHook.error("Ngày không hợp lệ");
+		} else if (
+			compareDate.compareDate(ngay, today) == 0 &&
+			compareDate.verifyToday()
+		) {
 			alertHook.error("Ngày không hợp lệ");
 		} else {
 			setNgay(e.target.value);

@@ -7,6 +7,7 @@ import Select from "react-select";
 import Pagination from "components/utils/Pagination/Pagination";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { useAlert } from "react-alert";
+import compareDate from "utils/compareDate";
 
 const BoughtLottery = () => {
 	const [veDaDangs, setVeDaDangs] = useState(null);
@@ -189,10 +190,14 @@ const BoughtLottery = () => {
 	}
 
 	const handleInputDateChange = (e) => {
-		console.log(e.target.value);
 		const today = new Date();
 		const ngay = new Date(e.target.value);
-		if (ngay < today) {
+		if (compareDate.compareDate(ngay, today) == 1) {
+			alertHook.error("Ngày không hợp lệ");
+		} else if (
+			compareDate.compareDate(ngay, today) == 0 &&
+			compareDate.verifyToday()
+		) {
 			alertHook.error("Ngày không hợp lệ");
 		} else {
 			setNgay(e.target.value);
@@ -369,9 +374,11 @@ const BoughtLottery = () => {
 							<th>STT</th>
 							<th>Vé số</th>
 							<th onClick={() => handleSortClick("soluong")}>Số lượng</th>
-							<th>Đài</th>
+							<th onClick={() => handleSortClick("vesoId.daiId.ten")}>Đài</th>
 							<th onClick={() => handleSortClick("ngay")}>Ngày sổ</th>
-							<th>Tính trạng</th>
+							<th onClick={() => handleSortClick("vesoId.status")}>
+								Tính trạng
+							</th>
 							<th>Xem kết quả</th>
 						</tr>
 						{veDaDangs.map((veDaMua, index) => (

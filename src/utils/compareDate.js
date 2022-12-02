@@ -23,7 +23,10 @@ const compareDate = {
 
 	verifyToday: () => {
 		const today = new Date();
-		if (today.getHours() < 15) return true;
+		console.log(today);
+		console.log(today.getHours());
+		console.log(today.getHours() < 15);
+		return today.getHours() < 15;
 	},
 };
 

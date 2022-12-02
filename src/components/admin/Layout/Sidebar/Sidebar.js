@@ -11,7 +11,7 @@ const Sidebar = () => {
 					<Link to="/admin/account/dat-kqxs">Lấy KQXS</Link>
 				</li>
 				<li>
-					<Link to="/admin/account/quan-ly-ve-mua">Quản lý vé số đã mua</Link>
+					<Link to="/admin/account/quan-ly-ve-mua">Quản lý vé số</Link>
 				</li>
 				<li>
 					<Link to="/admin/account/them-dai-ly">Thêm đại lý</Link>

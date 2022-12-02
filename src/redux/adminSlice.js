@@ -15,7 +15,7 @@ export const loadadmin = createAsyncThunk("admin/loadadmin", async () => {
 const adminSlice = createSlice({
 	name: "admin",
 	initialState: {
-		isLoading: false,
+		isLoading: true,
 		isLogin: false,
 		admin: null,
 		notify: [],
