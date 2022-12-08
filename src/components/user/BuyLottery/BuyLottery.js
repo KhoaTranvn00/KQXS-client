@@ -218,7 +218,7 @@ const BuyLottery = () => {
 			alertHook.error("Ngày không hợp lệ");
 		} else if (
 			compareDate.compareDate(ngay, today) == 0 &&
-			compareDate.verifyToday()
+			!compareDate.verifyToday()
 		) {
 			alertHook.error("Ngày không hợp lệ");
 		} else {

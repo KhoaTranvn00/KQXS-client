@@ -190,18 +190,18 @@ const PostedLottery = () => {
 	}
 
 	const handleInputDateChange = (e) => {
-		const today = new Date();
-		const ngay = new Date(e.target.value);
-		if (compareDate.compareDate(ngay, today) == 1) {
-			alertHook.error("Ngày không hợp lệ");
-		} else if (
-			compareDate.compareDate(ngay, today) == 0 &&
-			compareDate.verifyToday()
-		) {
-			alertHook.error("Ngày không hợp lệ");
-		} else {
-			setNgay(e.target.value);
-		}
+		// const today = new Date();
+		// const ngay = new Date(e.target.value);
+		// if (compareDate.compareDate(ngay, today) == 1) {
+		// 	alertHook.error("Ngày không hợp lệ");
+		// } else if (
+		// 	compareDate.compareDate(ngay, today) == 0 &&
+		// 	compareDate.verifyToday()
+		// ) {
+		// 	alertHook.error("Ngày không hợp lệ");
+		// } else {
+		// }
+		setNgay(e.target.value);
 	};
 
 	return (
