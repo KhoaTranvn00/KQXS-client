@@ -55,6 +55,8 @@ const SeriForm = () => {
 			console.log(response);
 			if (response.success) {
 				alertHook.success(response.message);
+			} else {
+				alertHook.error(response.message);
 			}
 		} catch (error) {
 			console.log(error);
@@ -65,7 +67,10 @@ const SeriForm = () => {
 		console.log(e.target.value);
 		const today = new Date();
 		const ngay = new Date(e.target.value);
-		if (compareDate.compareDate(ngay, today) == 2) {
+		if (
+			compareDate.compareDate(ngay, today) == 2 ||
+			!compareDate.verifyAdd3Date(ngay)
+		) {
 			alertHook.error("Ngày không hợp lệ");
 		} else if (
 			compareDate.compareDate(ngay, today) == 0 &&

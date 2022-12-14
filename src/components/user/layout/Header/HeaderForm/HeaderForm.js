@@ -33,6 +33,11 @@ const HeaderForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const validVeso = /[0-9]{6}$/;
+		if (!validVeso.test(formValue.veso)) {
+			alertHook.error("Vé số nhập vào không đúng định dạng");
+			return;
+		}
 		try {
 			const response = await userApi.doXS(formValue);
 			console.log(response);

@@ -1,6 +1,7 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import AccountAdmin from "components/admin/AccountAdmin";
 import LoginAdmin from "components/admin/auth/Login/LoginAdmin";
+import Chart from "components/admin/Chart/Chart";
 import Layout from "components/admin/Layout/Layout";
 import QLVM from "components/admin/QLVM/QLVM";
 import SetKQXS from "components/admin/SetKQXS/SetKQXS";
@@ -8,6 +9,7 @@ import ThemDaiLy from "components/admin/TheoDaiLy/ThemDaiLy";
 import AccountAgent from "components/agent/AccountAgent/AccountAgent";
 import PostedLottery from "components/agent/PostedLottery/PostedLottery";
 import PostLottery from "components/agent/PostLottery/PostLottery";
+import ThongBaoAgent from "components/agent/ThongBaoAgent/ThongBaoAgent";
 import Login from "components/user/auth/Login/Login";
 import Register from "components/user/auth/Login/Register";
 import BoughtLottery from "components/user/BoughtLottery/BoughtLottery";
@@ -89,6 +91,7 @@ function App() {
 				<Route path="admin" element={<Layout />}>
 					<Route path="dang-nhap" element={<LoginAdmin />} />
 					<Route path="account" element={<AccountAdmin />}>
+						<Route path="bao-cao" element={<Chart />} />
 						<Route path="dat-kqxs" element={<SetKQXS />} />
 						<Route path="quan-ly-ve-mua" element={<QLVM />} />
 						<Route path="them-dai-ly" element={<ThemDaiLy />} />
@@ -97,7 +100,7 @@ function App() {
 				<Route path="agent" element={<AccountAgent />}>
 					<Route path="dang-ve-so" element={<PostLottery />} />
 					<Route path="ve-da-dang" element={<PostedLottery />} />
-					{/* <Route path="thong-bao" element={<Notify />} /> */}
+					<Route path="thong-bao" element={<ThongBaoAgent />} />
 				</Route>
 			</Routes>
 		</Router>

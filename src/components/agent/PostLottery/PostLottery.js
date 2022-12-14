@@ -10,19 +10,13 @@ const PostLottery = () => {
 		<div>
 			<div className="nav__list">
 				<div
-					className="nav__item nav__item-switch"
-					onClick={() => setSwitchTag(true)}
-				>
-					<div className="nav__link">Đăng lẻ từng tờ</div>
-				</div>
-				<div
 					class="nav__item nav__item-switch"
 					onClick={() => setSwitchTag(false)}
 				>
 					<div className="nav__link">Đăng theo seri</div>
 				</div>
 			</div>
-			<div>{switchTag ? <RetailFrom /> : <SeriForm />}</div>
+			<div>{switchTag ? <SeriForm /> : <RetailFrom />}</div>
 		</div>
 	);
 };

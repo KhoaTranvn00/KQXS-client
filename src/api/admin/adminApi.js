@@ -6,6 +6,7 @@ const adminApi = {
 	// 	return axiosClient.get(`admin/get-ve-mua`, { params });
 	// },
 	getVeMua: (query) => axiosClient.get(`/admin/get-ve-mua?${query}`),
+	getBaoCao: () => axiosClient.get(`/admin/get-bao-cao`),
 };
 
 export default adminApi;
